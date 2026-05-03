@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Bulan Mei 2026 pada 17.11
+-- Waktu pembuatan: 03 Bulan Mei 2026 pada 19.09
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -75,6 +75,15 @@ CREATE TABLE `faq` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data untuk tabel `faq`
+--
+
+INSERT INTO `faq` (`id`, `pertanyaan`, `jawaban`) VALUES
+(1, 'Berapa suhu rata-rata di Kawah Ijen?', 'Suhu di Kawah Ijen sangat dingin, berkisar antara 2 hingga 10 derajat Celcius, terutama pada dini hari saat mendaki untuk melihat Blue Fire. Disarankan membawa jaket tebal.'),
+(2, 'Jam berapa pendakian Kawah Ijen dibuka?', 'Pendakian biasanya dibuka pada pukul 01:00 atau 02:00 dini hari. Waktu terbaik untuk memulai pendakian adalah jam 2 pagi agar bisa melihat Blue Fire sebelum matahari terbit.'),
+(3, 'Apakah perlu menggunakan masker gas?', 'Ya, sangat diwajibkan. Asap belerang di sekitar kawah sangat pekat dan beracun. Anda bisa menyewa masker gas respirator di area pos pendakian (Paltuding).');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -116,7 +125,7 @@ ALTER TABLE `artikel`
 -- AUTO_INCREMENT untuk tabel `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

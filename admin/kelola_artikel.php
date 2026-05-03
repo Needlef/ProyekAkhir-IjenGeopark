@@ -173,8 +173,8 @@ while ($baris = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 <td><?= htmlspecialchars($artikel['label']) ?></td>
                 <td>
                     <!-- Tombol Edit dan Hapus disiapkan untuk tahap selanjutnya -->
-                    <a href="#" class="btn btn-edit">Edit</a>
-                    <a href="#" class="btn btn-delete">Hapus</a>
+                    <a href="edit_artikel.php?id=<?= $artikel['id'] ?>" class="btn btn-edit">Edit</a>
+                    <a href="hapus_artikel.php?id=<?= $artikel['id'] ?>" class="btn btn-delete" onclick="return confirm('Yakin ingin menghapus artikel beserta gambarnya?');">Hapus</a>
                 </td>
             </tr>
             <?php endforeach; ?>
