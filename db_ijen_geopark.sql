@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Bulan Mei 2026 pada 19.09
+-- Waktu pembuatan: 03 Bulan Mei 2026 pada 20.06
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -52,15 +52,19 @@ CREATE TABLE `artikel` (
   `label` varchar(50) DEFAULT NULL,
   `ringkasan` text DEFAULT NULL,
   `konten` longtext DEFAULT NULL,
-  `gambar` varchar(255) DEFAULT NULL
+  `gambar` varchar(255) DEFAULT NULL,
+  `css_width` float NOT NULL DEFAULT 100,
+  `css_height` float NOT NULL DEFAULT 100,
+  `css_left` float NOT NULL DEFAULT 0,
+  `css_top` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `artikel`
 --
 
-INSERT INTO `artikel` (`id`, `judul`, `label`, `ringkasan`, `konten`, `gambar`) VALUES
-(1, 'Disney World', 'tes', 'tes', 'tessa\r\na\r\na\r\na\r\n\r\na\r\na\r\na\r\na\r\na\r\na\r\na', 'https://awsimages.detik.net.id/community/media/visual/2022/04/27/blue-flame-di-kawah-ijen-banyuwangi_169.jpeg?w=1200');
+INSERT INTO `artikel` (`id`, `judul`, `label`, `ringkasan`, `konten`, `gambar`, `css_width`, `css_height`, `css_left`, `css_top`) VALUES
+(1, 'Disney World', 'tes', 'tes', 'tessa\r\na\r\na\r\na\r\n\r\na\r\na\r\na\r\na\r\na\r\na\r\na', 'https://awsimages.detik.net.id/community/media/visual/2022/04/27/blue-flame-di-kawah-ijen-banyuwangi_169.jpeg?w=1200', 100, 100.148, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -119,7 +123,7 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `faq`
