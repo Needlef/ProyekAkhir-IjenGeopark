@@ -55,6 +55,33 @@
         </div>
     </section>
 
+    <section class="faq-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Pertanyaan Sering Diajukan (FAQ)</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">Berapa suhu rata-rata di Kawah Ijen?</button>
+                <div class="faq-answer">
+                    <p>Suhu di Kawah Ijen sangat dingin, berkisar antara 2 hingga 10 derajat Celcius, terutama pada dini hari saat mendaki untuk melihat Blue Fire. Disarankan membawa jaket tebal.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Jam berapa pendakian Kawah Ijen dibuka?</button>
+                <div class="faq-answer">
+                    <p>Pendakian biasanya dibuka pada pukul 01:00 atau 02:00 dini hari. Waktu terbaik untuk memulai pendakian adalah jam 2 pagi agar bisa melihat Blue Fire sebelum matahari terbit.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Apakah perlu menggunakan masker gas?</button>
+                <div class="faq-answer">
+                    <p>Ya, sangat diwajibkan. Asap belerang di sekitar kawah sangat pekat dan beracun. Anda bisa menyewa masker gas respirator di area pos pendakian (Paltuding).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-brand">
@@ -84,31 +111,7 @@
         </div>
     </footer>
 
-    <script>
-        // Dark theme toggle functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        // Check if dark mode preference is saved
-        const darkModeEnabled = localStorage.getItem('darkMode') === 'true';
-        if (darkModeEnabled) {
-            document.body.classList.add('dark-mode');
-            themeToggle.textContent = '☀️';
-        }
-        
-        // Toggle dark mode on button click
-        themeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            
-            // Update button icon
-            if (document.body.classList.contains('dark-mode')) {
-                themeToggle.textContent = '☀️';
-                localStorage.setItem('darkMode', 'true');
-            } else {
-                themeToggle.textContent = '🌙';
-                localStorage.setItem('darkMode', 'false');
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
