@@ -34,6 +34,25 @@ header nav {
     font-weight: 800;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.theme-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 5px;
+}
+
+.theme-btn:hover {
+    transform: scale(1.2);
+}
+
 .contact-link {
     font-size: 14px;
     font-weight: 600;
@@ -222,4 +241,44 @@ footer {
     /* Perubahan Teks Artikel: Teks lebih besar */
     .main-headline { font-size: 42px; }
     .article-text p { font-size: 16px; }
+}
+
+/* --- DARK THEME --- */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode header nav {
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode .card {
+    border-color: #333;
+    background-color: #242424;
+}
+
+body.dark-mode .card-body p {
+    color: #b0b0b0;
+}
+
+body.dark-mode footer {
+    border-top-color: #333;
+    background-color: #0f0f0f;
+}
+
+body.dark-mode .footer-brand p {
+    color: #888;
+}
+
+body.dark-mode .footer-column ul li {
+    color: #999;
+}
+
+body.dark-mode .cta-link {
+    color: #e0e0e0;
+}
+
+body.dark-mode .social-icons img {
+    filter: grayscale(100%) invert(1);
 }
