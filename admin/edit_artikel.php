@@ -127,18 +127,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
         <div class="form-group opsi-gambar">
             <label>Gambar & Posisi Crop Saat Ini</label>
             
-            <!-- Tampilan Preview Crop Lama (Memakai logika CSS yang sama dengan index.php) -->
+            <?php
+                // 1. Deteksi URL vs Fisik untuk Preview Lama
+                if (strpos($artikel_lama['gambar'], 'http') === 0) {
+                    $sumber_gambar_lama = htmlspecialchars($artikel_lama['gambar']);
+                } else {
+                    $sumber_gambar_lama = "../uploads/" . htmlspecialchars($artikel_lama['gambar']);
+                }
+
+                // 2. LOGIKA BACKWARD COMPATIBLE
+                $punya_koordinat_lama = !empty($artikel_lama['css_width']) && $artikel_lama['css_width'] > 0;
+                
+                $e_w = $punya_koordinat_lama ? $artikel_lama['css_width'] : 100;
+                $e_h = $punya_koordinat_lama ? $artikel_lama['css_height'] : 100;
+                $e_l = $punya_koordinat_lama ? $artikel_lama['css_left'] : 0;
+                $e_t = $punya_koordinat_lama ? $artikel_lama['css_top'] : 0;
+                $e_fit = $punya_koordinat_lama ? 'fill' : 'cover';
+            ?>
+            
+            <!-- Tampilan Preview Crop Lama -->
             <div style="width: 250px; aspect-ratio: 16/9; overflow: hidden; position: relative; margin-bottom: 15px; border: 2px solid #ccc; border-radius: 4px;">
-                <img src="<?= htmlspecialchars($artikel_lama['gambar']) ?>" style="
+                <img src="<?= $sumber_gambar_lama ?>" style="
                     position: absolute;
-                    width: <?= $artikel_lama['css_width'] ?>%;
-                    height: <?= $artikel_lama['css_height'] ?>%;
-                    left: <?= $artikel_lama['css_left'] ?>%;
-                    top: <?= $artikel_lama['css_top'] ?>%;
+                    width: <?= $e_w ?>%;
+                    height: <?= $e_h ?>%;
+                    left: <?= $e_l ?>%;
+                    top: <?= $e_t ?>%;
                     max-width: none;
-                    object-fit: fill;
+                    object-fit: <?= $e_fit ?>;
                 ">
             </div>
+            
+            <!-- ... (Sisa kode input URL dan Hidden JS di bawahnya biarkan sama) ... -->
             
             <p style="font-size: 13px; color: #555; margin-bottom: 15px;"><i>Biarkan nilai di bawah jika tidak ingin mengganti gambar atau mengubah posisi crop.</i></p>
 
