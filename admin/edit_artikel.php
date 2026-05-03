@@ -15,7 +15,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 $id_artikel = $_GET['id'];
 
-// Ambil data lama dari database
+// Ambil data lama dari database, termasuk koordinat CSS
 $stmt = $pdo->prepare("SELECT * FROM artikel WHERE id = :id");
 $stmt->execute(['id' => $id_artikel]);
 $artikel_lama = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -25,7 +25,7 @@ if (!$artikel_lama) {
 }
 
 // ==========================================
-// ALUR LOGIKA UPDATE (Menyimpan Perubahan)
+// ALUR LOGIKA UPDATE (VERSI KOORDINAT CSS)
 // ==========================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
     $judul     = $_POST['judul'];
@@ -33,50 +33,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
     $ringkasan = $_POST['ringkasan'];
     $konten    = $_POST['konten'];
     
-    // Secara default, gunakan gambar lama jika admin tidak mengganti gambar
-    $gambar_final = $artikel_lama['gambar'];
+    // Tangkap data URL dan koordinat dari form
+    $gambar_url = trim($_POST['gambar_url']);
+    $css_width  = $_POST['css_width'];
+    $css_height = $_POST['css_height'];
+    $css_left   = $_POST['css_left'];
+    $css_top    = $_POST['css_top'];
 
-    // Cek apakah admin mengunggah file gambar baru
-    if (isset($_FILES['gambar_file']) && $_FILES['gambar_file']['error'] === 0) {
-        $nama_file = time() . "_" . $_FILES['gambar_file']['name']; 
-        $tmp_file  = $_FILES['gambar_file']['tmp_name'];
-        $rute_tujuan = "../uploads/" . $nama_file;
+    if (!empty($gambar_url)) {
+        // Update query termasuk data CSS
+        $sql = "UPDATE artikel SET 
+                judul = :judul, 
+                label = :label, 
+                ringkasan = :ringkasan, 
+                konten = :konten, 
+                gambar = :gambar,
+                css_width = :cw,
+                css_height = :ch,
+                css_left = :cl,
+                css_top = :ct
+                WHERE id = :id";
+                
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'judul'     => $judul,
+            'label'     => $label,
+            'ringkasan' => $ringkasan,
+            'konten'    => $konten,
+            'gambar'    => $gambar_url,
+            'cw'        => $css_width,
+            'ch'        => $css_height,
+            'cl'        => $css_left,
+            'ct'        => $css_top,
+            'id'        => $id_artikel
+        ]);
         
-        if (move_uploaded_file($tmp_file, $rute_tujuan)) {
-            $gambar_final = $nama_file;
-            
-            // Hapus file gambar fisik yang lama agar server tidak penuh (opsional tapi disarankan)
-            if (strpos($artikel_lama['gambar'], 'http') !== 0 && file_exists("../uploads/" . $artikel_lama['gambar'])) {
-                unlink("../uploads/" . $artikel_lama['gambar']);
-            }
-        }
-        
-    // Cek apakah admin memasukkan URL gambar baru
-    } elseif (!empty(trim($_POST['gambar_url']))) {
-        $gambar_final = trim($_POST['gambar_url']);
+        header("Location: kelola_artikel.php");
+        exit;
+    } else {
+        $error_msg = "URL Gambar wajib diisi!";
     }
-
-    // Eksekusi Update ke Database
-    $sql = "UPDATE artikel SET 
-            judul = :judul, 
-            label = :label, 
-            ringkasan = :ringkasan, 
-            konten = :konten, 
-            gambar = :gambar 
-            WHERE id = :id";
-            
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        'judul'     => $judul,
-        'label'     => $label,
-        'ringkasan' => $ringkasan,
-        'konten'    => $konten,
-        'gambar'    => $gambar_final,
-        'id'        => $id_artikel
-    ]);
-    
-    header("Location: kelola_artikel.php");
-    exit;
 }
 ?>
 
@@ -95,8 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
         .btn:hover { background: #e0a800; }
         .btn-back { background: #555; color: white; display: inline-block; margin-bottom: 20px; font-weight: normal; }
         .opsi-gambar { background: #e9ecef; padding: 15px; border: 1px solid #ccc; border-radius: 4px; }
-        .gambar-lama { max-width: 200px; border-radius: 4px; margin-bottom: 10px; display: block; }
     </style>
+    <!-- Tambahkan Library Cropper.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </head>
 <body>
 
@@ -104,10 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
     <a href="kelola_artikel.php" class="btn btn-back">⬅ Batal & Kembali</a>
     <h2>Edit Artikel</h2>
 
-    <form method="POST" action="" enctype="multipart/form-data">
+    <?php if (isset($error_msg)): ?>
+        <p style="color:red; font-weight:bold;"><?= $error_msg ?></p>
+    <?php endif; ?>
+
+    <form method="POST" action="">
         <div class="form-group">
             <label>Judul Destinasi</label>
-            <!-- Data lama dimasukkan ke dalam atribut value -->
             <input type="text" name="judul" value="<?= htmlspecialchars($artikel_lama['judul']) ?>" required>
         </div>
         <div class="form-group">
@@ -116,7 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
         </div>
         <div class="form-group">
             <label>Ringkasan</label>
-            <!-- Untuk textarea, data lama ditaruh di antara tag pembuka dan penutup -->
             <textarea name="ringkasan" rows="3" required><?= htmlspecialchars($artikel_lama['ringkasan']) ?></textarea>
         </div>
         <div class="form-group">
@@ -125,27 +125,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
         </div>
         
         <div class="form-group opsi-gambar">
-            <label>Gambar Saat Ini:</label>
-            <?php
-                if (strpos($artikel_lama['gambar'], 'http') === 0) {
-                    $sumber_gambar = htmlspecialchars($artikel_lama['gambar']);
-                } else {
-                    $sumber_gambar = "../uploads/" . htmlspecialchars($artikel_lama['gambar']);
-                }
-            ?>
-            <img src="<?= $sumber_gambar ?>" class="gambar-lama" alt="Gambar Lama">
-            <p style="font-size: 12px; color: #555;"><i>Biarkan opsi di bawah kosong jika tidak ingin mengganti gambar.</i></p>
+            <label>Gambar & Posisi Crop Saat Ini</label>
             
-            <p style="margin-top: 15px; font-weight: bold;">Ganti dengan URL Gambar Baru:</p>
-            <input type="text" name="gambar_url" placeholder="Contoh: https://asset.kompas.com/gambar-baru.jpg">
+            <!-- Tampilan Preview Crop Lama (Memakai logika CSS yang sama dengan index.php) -->
+            <div style="width: 250px; aspect-ratio: 16/9; overflow: hidden; position: relative; margin-bottom: 15px; border: 2px solid #ccc; border-radius: 4px;">
+                <img src="<?= htmlspecialchars($artikel_lama['gambar']) ?>" style="
+                    position: absolute;
+                    width: <?= $artikel_lama['css_width'] ?>%;
+                    height: <?= $artikel_lama['css_height'] ?>%;
+                    left: <?= $artikel_lama['css_left'] ?>%;
+                    top: <?= $artikel_lama['css_top'] ?>%;
+                    max-width: none;
+                    object-fit: fill;
+                ">
+            </div>
             
-            <p style="margin-top: 15px; font-weight: bold;">Atau Ganti dengan Upload File Fisik:</p>
-            <input type="file" name="gambar_file" accept="image/*">
+            <p style="font-size: 13px; color: #555; margin-bottom: 15px;"><i>Biarkan nilai di bawah jika tidak ingin mengganti gambar atau mengubah posisi crop.</i></p>
+
+            <label>URL Gambar Cloud</label>
+            <input type="text" name="gambar_url" id="gambar_url" value="<?= htmlspecialchars($artikel_lama['gambar']) ?>" required>
+            <button type="button" id="btnPreview" class="btn" style="background: #17a2b8; color: white; margin-top: 10px;">Load & Atur Posisi (Crop)</button>
+            
+            <!-- Tempat Preview Cropper -->
+            <div id="cropArea" style="margin-top: 15px; max-height: 400px; display: none;">
+                <img id="imageToCrop" style="max-width: 100%;">
+            </div>
+            
+            <!-- Input tersembunyi dengan default value dari database -->
+            <input type="hidden" name="css_width" id="css_width" value="<?= $artikel_lama['css_width'] ?>">
+            <input type="hidden" name="css_height" id="css_height" value="<?= $artikel_lama['css_height'] ?>">
+            <input type="hidden" name="css_left" id="css_left" value="<?= $artikel_lama['css_left'] ?>">
+            <input type="hidden" name="css_top" id="css_top" value="<?= $artikel_lama['css_top'] ?>">
         </div>
         
         <button type="submit" name="update_artikel" class="btn">Simpan Perubahan</button>
     </form>
 </div>
+
+<script>
+    let cropper;
+    document.getElementById('btnPreview').addEventListener('click', function() {
+        const url = document.getElementById('gambar_url').value;
+        const img = document.getElementById('imageToCrop');
+        const cropArea = document.getElementById('cropArea');
+        
+        if(url) {
+            img.src = url;
+            cropArea.style.display = 'block';
+            
+            if(cropper) cropper.destroy();
+            
+            img.onload = function() {
+                cropper = new Cropper(img, {
+                    aspectRatio: 16 / 9,
+                    viewMode: 1,
+                    crop: function(event) {
+                        const data = event.detail; 
+                        const natW = img.naturalWidth;
+                        const natH = img.naturalHeight;
+                        
+                        const cssW = (natW / data.width) * 100;
+                        const cssH = (natH / data.height) * 100;
+                        const cssL = -(data.x / data.width) * 100;
+                        const cssT = -(data.y / data.height) * 100;
+                        
+                        document.getElementById('css_width').value = cssW;
+                        document.getElementById('css_height').value = cssH;
+                        document.getElementById('css_left').value = cssL;
+                        document.getElementById('css_top').value = cssT;
+                    }
+                });
+            };
+        }
+    });
+</script>
 
 </body>
 </html>

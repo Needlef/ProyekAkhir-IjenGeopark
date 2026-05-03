@@ -52,10 +52,19 @@ if (strpos($artikel['gambar'], 'http') === 0) {
     </header>
 
     <!-- BAGIAN HERO GAMBAR UTAMA -->
-    <section class="hero-article">
-        <!-- Gambar disuntikkan secara dinamis -->
-        <img src="<?= $sumber_gambar ?>" alt="<?= htmlspecialchars($artikel['judul']) ?>">
-    </section>
+    <section class="hero-article" style="width: 100%; height: 400px; overflow: hidden; position: relative;">
+    <img src="<?= htmlspecialchars($artikel['gambar']) ?>" 
+         style="
+            position: absolute;
+            width: <?= $artikel['css_width'] ?>%; 
+            height: <?= $artikel['css_height'] ?>%;
+            left: <?= $artikel['css_left'] ?>%; 
+            top: <?= $artikel['css_top'] ?>%;
+            max-width: none;
+            object-fit: fill;
+         " 
+         alt="<?= htmlspecialchars($artikel['judul']) ?>">
+</section>
 
     <!-- BAGIAN KONTEN ARTIKEL -->
     <main class="article-content">

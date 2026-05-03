@@ -3,7 +3,7 @@
 require 'includes/koneksi.php';
 
 // 2. Tarik Data Artikel dari Database (Diurutkan dari yang terbaru)
-$stmt_artikel = $pdo->query("SELECT id, judul, ringkasan, gambar FROM artikel ORDER BY id DESC");
+$stmt_artikel = $pdo->query("SELECT id, judul, ringkasan, gambar, css_width, css_height, css_left, css_top FROM artikel ORDER BY id DESC");
 $artikel_data = $stmt_artikel->fetchAll(PDO::FETCH_ASSOC);
 
 // 3. Tarik Data FAQ dari Database
@@ -56,19 +56,30 @@ $faq_data = $stmt_faq->fetchAll(PDO::FETCH_ASSOC);
                         }
                     ?>
                     
-                    <div class="card">
-                        <!-- Mencetak gambar ke dalam inline CSS background-image -->
-                        <div class="card-img" style="background-image: url('<?= $bg_image ?>');"></div>
-                        
-                        <div class="card-body">
-                            <!-- Mencetak Judul -->
-                            <h3><?= htmlspecialchars($row['judul']) ?></h3>
-                            <!-- Mencetak Ringkasan -->
-                            <p><?= htmlspecialchars($row['ringkasan']) ?></p>
-                            <!-- Link diubah agar mengirimkan ID unik ke artikel.php -->
-                            <a href="artikel.php?id=<?= $row['id'] ?>" class="cta-link">Call to action &rarr;</a>
+                        <div class="card">
+                            <!-- 1. Wrapper sebagai Jendela (Masker) -->
+                            <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; border-radius: 12px 12px 0 0;">
+                                
+                                <!-- 2. Gambar asli yang dimanipulasi posisinya -->
+                                <img src="<?= htmlspecialchars($row['gambar']) ?>" 
+                                    style="
+                                        position: absolute;
+                                        width: <?= $row['css_width'] ?>%; 
+                                        height: <?= $row['css_height'] ?>%;
+                                        left: <?= $row['css_left'] ?>%; 
+                                        top: <?= $row['css_top'] ?>%;
+                                        max-width: none;  
+                                        object-fit: fill;
+                                    " 
+                                    alt="<?= htmlspecialchars($row['judul']) ?>">
+                            </div>
+
+                            <div class="card-body">
+                                <h3><?= htmlspecialchars($row['judul']) ?></h3>
+                                <p><?= htmlspecialchars($row['ringkasan']) ?></p>
+                                <a href="artikel.php?id=<?= $row['id'] ?>" class="cta-link">Call to action &rarr;</a>
+                            </div>
                         </div>
-                    </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p style="text-align:center; width:100%; grid-column: 1 / -1;">Belum ada destinasi yang ditambahkan. Silakan login ke panel Admin.</p>
