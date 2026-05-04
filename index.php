@@ -47,13 +47,22 @@ $faq_data = $stmt_faq->fetchAll(PDO::FETCH_ASSOC);
             <?php if (count($artikel_data) > 0): ?>
                 <?php foreach ($artikel_data as $row): ?>
                     <?php
-                        // Logika kompatibilitas gambar (URL eksternal vs Upload fisik)
+                        // 1. Cek Sumber Gambar (URL vs Fisik)
                         if (strpos($row['gambar'], 'http') === 0) {
                             $bg_image = htmlspecialchars($row['gambar']);
                         } else {
-                            // Jika upload fisik, arahkan ke folder uploads
                             $bg_image = "uploads/" . htmlspecialchars($row['gambar']);
                         }
+
+                        // 2. LOGIKA BACKWARD COMPATIBLE (Fallback ke Center Crop)
+                        $punya_koordinat = !empty($row['css_width']) && $row['css_width'] > 0;
+                        
+                        $c_w = $punya_koordinat ? $row['css_width'] : 100;
+                        $c_h = $punya_koordinat ? $row['css_height'] : 100;
+                        $c_l = $punya_koordinat ? $row['css_left'] : 0;
+                        $c_t = $punya_koordinat ? $row['css_top'] : 0;
+                        
+                        $obj_fit = $punya_koordinat ? 'fill' : 'cover';
                     ?>
                     
                         <div class="card">
@@ -61,15 +70,15 @@ $faq_data = $stmt_faq->fetchAll(PDO::FETCH_ASSOC);
                             <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; border-radius: 12px 12px 0 0;">
                                 
                                 <!-- 2. Gambar asli yang dimanipulasi posisinya -->
-                                <img src="<?= htmlspecialchars($row['gambar']) ?>" 
+                                <img src="<?= $bg_image ?>" 
                                     style="
                                         position: absolute;
-                                        width: <?= $row['css_width'] ?>%; 
-                                        height: <?= $row['css_height'] ?>%;
-                                        left: <?= $row['css_left'] ?>%; 
-                                        top: <?= $row['css_top'] ?>%;
-                                        max-width: none;  
-                                        object-fit: fill;
+                                        width: <?= $c_w ?>%;
+                                        height: <?= $c_h ?>%;
+                                        left: <?= $c_l ?>%;
+                                        top: <?= $c_t ?>%;
+                                        max-width: none;
+                                        object-fit: <?= $obj_fit ?>;
                                     " 
                                     alt="<?= htmlspecialchars($row['judul']) ?>">
                             </div>

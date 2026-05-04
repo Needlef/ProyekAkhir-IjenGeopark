@@ -26,11 +26,21 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 // 5. Logika gambar (Kompatibel dengan URL eksternal atau Upload Fisik)
-if (strpos($artikel['gambar'], 'http') === 0) {
-    $sumber_gambar = htmlspecialchars($artikel['gambar']);
-} else {
-    $sumber_gambar = "uploads/" . htmlspecialchars($artikel['gambar']);
-}
+// Logika gambar (URL vs Fisik)
+    if (strpos($artikel['gambar'], 'http') === 0) {
+        $sumber_gambar = htmlspecialchars($artikel['gambar']);
+    } else {
+        $sumber_gambar = "uploads/" . htmlspecialchars($artikel['gambar']);
+    }
+
+    // LOGIKA BACKWARD COMPATIBLE
+    $punya_koordinat = !empty($artikel['css_width']) && $artikel['css_width'] > 0;
+    
+    $c_w = $punya_koordinat ? $artikel['css_width'] : 100;
+    $c_h = $punya_koordinat ? $artikel['css_height'] : 100;
+    $c_l = $punya_koordinat ? $artikel['css_left'] : 0;
+    $c_t = $punya_koordinat ? $artikel['css_top'] : 0;
+    $obj_fit = $punya_koordinat ? 'fill' : 'cover';
 ?>
 
 <!DOCTYPE html>
@@ -53,19 +63,16 @@ if (strpos($artikel['gambar'], 'http') === 0) {
 
     <!-- BAGIAN HERO GAMBAR UTAMA -->
     <section class="hero-article" style="width: 100%; height: 400px; overflow: hidden; position: relative;">
-    <img src="<?= htmlspecialchars($artikel['gambar']) ?>" 
-         style="
-            position: absolute;
-            width: <?= $artikel['css_width'] ?>%; 
-            height: <?= $artikel['css_height'] ?>%;
-            left: <?= $artikel['css_left'] ?>%; 
-            top: <?= $artikel['css_top'] ?>%;
-            max-width: none;
-            object-fit: fill;
-         " 
-         alt="<?= htmlspecialchars($artikel['judul']) ?>">
-</section>
-
+            <img src="<?= $sumber_gambar ?>" alt="<?= htmlspecialchars($artikel['judul']) ?>" style="
+                position: absolute;
+                width: <?= $c_w ?>%;
+                height: <?= $c_h ?>%;
+                left: <?= $c_l ?>%;
+                top: <?= $c_t ?>%;
+                max-width: none;
+                object-fit: <?= $obj_fit ?>;
+            ">
+        </section>
     <!-- BAGIAN KONTEN ARTIKEL -->
     <main class="article-content">
         <!-- Label / Eyebrow -->
