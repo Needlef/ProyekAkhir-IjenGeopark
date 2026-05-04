@@ -179,32 +179,23 @@ while ($baris = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 <td><?= $artikel['id'] ?></td>
                 <td>
                     <?php
-                        // 1. Logika deteksi URL vs File Fisik
+                        // Logika deteksi URL vs File Fisik
                         if (strpos($artikel['gambar'], 'http') === 0) {
                             $sumber_gambar = htmlspecialchars($artikel['gambar']);
                         } else {
                             $sumber_gambar = "../uploads/" . htmlspecialchars($artikel['gambar']);
                         }
-                        
-                        // 2. LOGIKA BACKWARD COMPATIBLE
-                        $punya_koordinat = !empty($artikel['css_width']) && $artikel['css_width'] > 0;
-                        
-                        $c_w = $punya_koordinat ? $artikel['css_width'] : 100;
-                        $c_h = $punya_koordinat ? $artikel['css_height'] : 100;
-                        $c_l = $punya_koordinat ? $artikel['css_left'] : 0;
-                        $c_t = $punya_koordinat ? $artikel['css_top'] : 0;
-                        $obj_fit = $punya_koordinat ? 'fill' : 'cover';
                     ?>
-                    <!-- Thumbnail dengan implementasi Fallback -->
+                    <!-- Thumbnail dengan implementasi CSS Math -->
                     <div class="thumb-container">
                         <img src="<?= $sumber_gambar ?>" style="
                             position: absolute;
-                            width: <?= $c_w ?>%;
-                            height: <?= $c_h ?>%;
-                            left: <?= $c_l ?>%;
-                            top: <?= $c_t ?>%;
+                            width: <?= $artikel['css_width'] ?>%;
+                            height: <?= $artikel['css_height'] ?>%;
+                            left: <?= $artikel['css_left'] ?>%;
+                            top: <?= $artikel['css_top'] ?>%;
                             max-width: none;
-                            object-fit: <?= $obj_fit ?>;
+                            object-fit: fill;
                         ">
                     </div>
                 </td>
