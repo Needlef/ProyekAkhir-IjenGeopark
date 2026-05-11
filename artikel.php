@@ -33,14 +33,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $sumber_gambar = "uploads/" . htmlspecialchars($artikel['gambar']);
     }
 
-    // LOGIKA BACKWARD COMPATIBLE
-    $punya_koordinat = !empty($artikel['css_width']) && $artikel['css_width'] > 0;
-    
-    $c_w = $punya_koordinat ? $artikel['css_width'] : 100;
-    $c_h = $punya_koordinat ? $artikel['css_height'] : 100;
-    $c_l = $punya_koordinat ? $artikel['css_left'] : 0;
-    $c_t = $punya_koordinat ? $artikel['css_top'] : 0;
-    $obj_fit = $punya_koordinat ? 'fill' : 'cover';
 ?>
 
 <!DOCTYPE html>
@@ -62,17 +54,18 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     </header>
 
     <!-- BAGIAN HERO GAMBAR UTAMA -->
+    <!-- BAGIAN HERO GAMBAR UTAMA -->
     <section class="hero-article" style="width: 100%; height: 400px; overflow: hidden; position: relative;">
-            <img src="<?= $sumber_gambar ?>" alt="<?= htmlspecialchars($artikel['judul']) ?>" style="
+            <img src="<?= htmlspecialchars($sumber_gambar) ?>" style="
                 position: absolute;
-                width: <?= $c_w ?>%;
-                height: <?= $c_h ?>%;
-                left: <?= $c_l ?>%;
-                top: <?= $c_t ?>%;
+                width: <?= $artikel['css_width'] ?: 100 ?>%;
+                height: <?= $artikel['css_height'] ?: 100 ?>%;
+                left: <?= $artikel['css_left'] ?: 0 ?>%;
+                top: <?= $artikel['css_top'] ?: 0 ?>%;
                 max-width: none;
-                object-fit: <?= $obj_fit ?>;
+                object-fit: cover;
             ">
-        </section>
+    </section>
     <!-- BAGIAN KONTEN ARTIKEL -->
     <main class="article-content">
         <!-- Label / Eyebrow -->

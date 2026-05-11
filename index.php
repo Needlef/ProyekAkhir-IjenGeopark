@@ -54,33 +54,22 @@ $faq_data = $stmt_faq->fetchAll(PDO::FETCH_ASSOC);
                             $bg_image = "uploads/" . htmlspecialchars($row['gambar']);
                         }
 
-                        // 2. LOGIKA BACKWARD COMPATIBLE (Fallback ke Center Crop)
-                        $punya_koordinat = !empty($row['css_width']) && $row['css_width'] > 0;
+                       
                         
-                        $c_w = $punya_koordinat ? $row['css_width'] : 100;
-                        $c_h = $punya_koordinat ? $row['css_height'] : 100;
-                        $c_l = $punya_koordinat ? $row['css_left'] : 0;
-                        $c_t = $punya_koordinat ? $row['css_top'] : 0;
-                        
-                        $obj_fit = $punya_koordinat ? 'fill' : 'cover';
+                        $obj_fit ='cover';
                     ?>
                     
                         <div class="card">
-                            <!-- 1. Wrapper sebagai Jendela (Masker) -->
                             <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; border-radius: 12px 12px 0 0;">
-                                
-                                <!-- 2. Gambar asli yang dimanipulasi posisinya -->
-                                <img src="<?= $bg_image ?>" 
-                                    style="
-                                        position: absolute;
-                                        width: <?= $c_w ?>%;
-                                        height: <?= $c_h ?>%;
-                                        left: <?= $c_l ?>%;
-                                        top: <?= $c_t ?>%;
-                                        max-width: none;
-                                        object-fit: <?= $obj_fit ?>;
-                                    " 
-                                    alt="<?= htmlspecialchars($row['judul']) ?>">
+                                <img src="<?= htmlspecialchars($bg_image) ?>" style="
+                                    position: absolute;
+                                    width: <?= $row['css_width'] ?: 100 ?>%;
+                                    height: <?= $row['css_height'] ?: 100 ?>%;
+                                    left: <?= $row['css_left'] ?: 0 ?>%;
+                                    top: <?= $row['css_top'] ?: 0 ?>%;
+                                    max-width: none;
+                                    object-fit: cover;
+                                " alt="<?= htmlspecialchars($row['judul']) ?>">
                             </div>
 
                             <div class="card-body">
