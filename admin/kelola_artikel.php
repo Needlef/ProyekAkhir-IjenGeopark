@@ -98,7 +98,7 @@ while ($baris = $stmt->fetch(PDO::FETCH_ASSOC)) {
         .opsi-gambar { background: #f9f9f9; padding: 15px; border: 1px dashed #ccc; border-radius: 4px; }
         
         /* Tampilan mini crop di tabel */
-        .thumb-container { width: 120px; aspect-ratio: 16/9; overflow: hidden; position: relative; border-radius: 4px; }
+        .thumb-container { width: 120px; aspect-ratio: 21/9; overflow: hidden; position: relative; border-radius: 4px; }
     </style>
     <!-- Library Cropper.js -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
@@ -185,26 +185,17 @@ while ($baris = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         } else {
                             $sumber_gambar = "../uploads/" . htmlspecialchars($artikel['gambar']);
                         }
-                        
-                        // 2. LOGIKA BACKWARD COMPATIBLE
-                        $punya_koordinat = !empty($artikel['css_width']) && $artikel['css_width'] > 0;
-                        
-                        $c_w = $punya_koordinat ? $artikel['css_width'] : 100;
-                        $c_h = $punya_koordinat ? $artikel['css_height'] : 100;
-                        $c_l = $punya_koordinat ? $artikel['css_left'] : 0;
-                        $c_t = $punya_koordinat ? $artikel['css_top'] : 0;
-                        $obj_fit = $punya_koordinat ? 'fill' : 'cover';
                     ?>
-                    <!-- Thumbnail dengan implementasi Fallback -->
+                    <!-- Thumbnail dengan implementasi Fallback Super Ringkas -->
                     <div class="thumb-container">
                         <img src="<?= $sumber_gambar ?>" style="
                             position: absolute;
-                            width: <?= $c_w ?>%;
-                            height: <?= $c_h ?>%;
-                            left: <?= $c_l ?>%;
-                            top: <?= $c_t ?>%;
+                            width: <?= $artikel['css_width'] ?: 100 ?>%;
+                            height: <?= $artikel['css_height'] ?: 100 ?>%;
+                            left: <?= $artikel['css_left'] ?: 0 ?>%;
+                            top: <?= $artikel['css_top'] ?: 0 ?>%;
                             max-width: none;
-                            object-fit: <?= $obj_fit ?>;
+                            object-fit: cover;
                         ">
                     </div>
                 </td>
@@ -233,8 +224,8 @@ while ($baris = $stmt->fetch(PDO::FETCH_ASSOC)) {
         if(cropper) cropper.destroy();
         
         img.onload = function() {
-            cropper = new Cropper(img, {
-                aspectRatio: 16 / 9,
+           cropper = new Cropper(img, {
+                aspectRatio: 21 / 9, 
                 viewMode: 1,
                 crop: function(event) {
                     const data = event.detail; 

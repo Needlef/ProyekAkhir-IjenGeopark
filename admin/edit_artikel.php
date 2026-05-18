@@ -18,9 +18,9 @@ $id_artikel = $_GET['id'];
 // Ambil data lama dari database, termasuk koordinat CSS
 $stmt = $pdo->prepare("SELECT * FROM artikel WHERE id = :id");
 $stmt->execute(['id' => $id_artikel]);
-$artikel_lama = $stmt->fetch(PDO::FETCH_ASSOC);
+$artikel= $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$artikel_lama) {
+if (!$artikel) {
     die("Artikel tidak ditemukan!");
 }
 
@@ -109,19 +109,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
     <form method="POST" action="">
         <div class="form-group">
             <label>Judul Destinasi</label>
-            <input type="text" name="judul" value="<?= htmlspecialchars($artikel_lama['judul']) ?>" required>
+            <input type="text" name="judul" value="<?= htmlspecialchars($artikel['judul']) ?>" required>
         </div>
         <div class="form-group">
             <label>Label</label>
-            <input type="text" name="label" value="<?= htmlspecialchars($artikel_lama['label']) ?>">
+            <input type="text" name="label" value="<?= htmlspecialchars($artikel['label']) ?>">
         </div>
         <div class="form-group">
             <label>Ringkasan</label>
-            <textarea name="ringkasan" rows="3" required><?= htmlspecialchars($artikel_lama['ringkasan']) ?></textarea>
+            <textarea name="ringkasan" rows="3" required><?= htmlspecialchars($artikel['ringkasan']) ?></textarea>
         </div>
         <div class="form-group">
             <label>Konten Lengkap</label>
-            <textarea name="konten" rows="8" required><?= htmlspecialchars($artikel_lama['konten']) ?></textarea>
+            <textarea name="konten" rows="8" required><?= htmlspecialchars($artikel['konten']) ?></textarea>
         </div>
         
         <div class="form-group opsi-gambar">
@@ -129,33 +129,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
             
             <?php
                 // 1. Deteksi URL vs Fisik untuk Preview Lama
-                if (strpos($artikel_lama['gambar'], 'http') === 0) {
-                    $sumber_gambar_lama = htmlspecialchars($artikel_lama['gambar']);
+                if (strpos($artikel['gambar'], 'http') === 0) {
+                    $sumber_gambar = htmlspecialchars($artikel['gambar']);
                 } else {
-                    $sumber_gambar_lama = "../uploads/" . htmlspecialchars($artikel_lama['gambar']);
+                    $sumber_gambar = "../uploads/" . htmlspecialchars($artikel['gambar']);
                 }
 
-                // 2. LOGIKA BACKWARD COMPATIBLE
-                $punya_koordinat_lama = !empty($artikel_lama['css_width']) && $artikel_lama['css_width'] > 0;
-                
-                $e_w = $punya_koordinat_lama ? $artikel_lama['css_width'] : 100;
-                $e_h = $punya_koordinat_lama ? $artikel_lama['css_height'] : 100;
-                $e_l = $punya_koordinat_lama ? $artikel_lama['css_left'] : 0;
-                $e_t = $punya_koordinat_lama ? $artikel_lama['css_top'] : 0;
-                $e_fit = $punya_koordinat_lama ? 'fill' : 'cover';
             ?>
             
-            <!-- Tampilan Preview Crop Lama -->
-            <div style="width: 250px; aspect-ratio: 16/9; overflow: hidden; position: relative; margin-bottom: 15px; border: 2px solid #ccc; border-radius: 4px;">
-                <img src="<?= $sumber_gambar_lama ?>" style="
-                    position: absolute;
-                    width: <?= $e_w ?>%;
-                    height: <?= $e_h ?>%;
-                    left: <?= $e_l ?>%;
-                    top: <?= $e_t ?>%;
-                    max-width: none;
-                    object-fit: <?= $e_fit ?>;
-                ">
+            
+            <div style="width: 100%; max-width: 400px; aspect-ratio: 21/9; overflow: hidden; position: relative; margin-bottom: 15px; border: 2px solid #ccc; border-radius: 4px;">
+                <img src="<?= htmlspecialchars($sumber_gambar) ?>" style="
+                position: absolute;
+                width: <?= $artikel['css_width'] ?: 100 ?>%;
+                height: <?= $artikel['css_height'] ?: 100 ?>%;
+                left: <?= $artikel['css_left'] ?: 0 ?>%;
+                top: <?= $artikel['css_top'] ?: 0 ?>%;
+                max-width: none;
+                object-fit: cover;
+            ">
             </div>
             
             <!-- ... (Sisa kode input URL dan Hidden JS di bawahnya biarkan sama) ... -->
@@ -163,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
             <p style="font-size: 13px; color: #555; margin-bottom: 15px;"><i>Biarkan nilai di bawah jika tidak ingin mengganti gambar atau mengubah posisi crop.</i></p>
 
             <label>URL Gambar Cloud</label>
-            <input type="text" name="gambar_url" id="gambar_url" value="<?= htmlspecialchars($artikel_lama['gambar']) ?>" required>
+            <input type="text" name="gambar_url" id="gambar_url" value="<?= htmlspecialchars($artikel['gambar']) ?>" required>
             <button type="button" id="btnPreview" class="btn" style="background: #17a2b8; color: white; margin-top: 10px;">Load & Atur Posisi (Crop)</button>
             
             <!-- Tempat Preview Cropper -->
@@ -172,10 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
             </div>
             
             <!-- Input tersembunyi dengan default value dari database -->
-            <input type="hidden" name="css_width" id="css_width" value="<?= $artikel_lama['css_width'] ?>">
-            <input type="hidden" name="css_height" id="css_height" value="<?= $artikel_lama['css_height'] ?>">
-            <input type="hidden" name="css_left" id="css_left" value="<?= $artikel_lama['css_left'] ?>">
-            <input type="hidden" name="css_top" id="css_top" value="<?= $artikel_lama['css_top'] ?>">
+            <input type="hidden" name="css_width" id="css_width" value="<?= $artikel['css_width'] ?>">
+            <input type="hidden" name="css_height" id="css_height" value="<?= $artikel['css_height'] ?>">
+            <input type="hidden" name="css_left" id="css_left" value="<?= $artikel['css_left'] ?>">
+            <input type="hidden" name="css_top" id="css_top" value="<?= $artikel['css_top'] ?>">
         </div>
         
         <button type="submit" name="update_artikel" class="btn">Simpan Perubahan</button>
@@ -197,8 +189,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_artikel'])) {
             
             img.onload = function() {
                 cropper = new Cropper(img, {
-                    aspectRatio: 16 / 9,
-                    viewMode: 1,
+                aspectRatio: 21 / 9, 
+                viewMode: 1,
                     crop: function(event) {
                         const data = event.detail; 
                         const natW = img.naturalWidth;
