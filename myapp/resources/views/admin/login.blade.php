@@ -1,46 +1,3 @@
-<?php
-// 1. Mulai Sesi (Membangunkan Penjaga)
-session_start();
-
-// 2. Panggil Jembatan Database
-require '../includes/koneksi.php';
-
-// 3. Cek apakah sudah punya tiket (Sudah Login)
-// Jika iya, tidak perlu lihat form login lagi, langsung usir ke Dashboard
-if (isset($_SESSION['status_login']) && $_SESSION['status_login'] === true) {
-    header("Location: dashboard.php");
-    exit;
-}
-
-$error = '';
-
-// 4. Alur ketika tombol "Masuk" ditekan (Metode POST)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $input_user = $_POST['username'];
-    $input_pass = $_POST['password'];
-
-    // A. Cari username di database menggunakan Prepared Statement (Anti SQL Injection)
-    $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = :username LIMIT 1");
-    $stmt->execute(['username' => $input_user]);
-    $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // B. Logika Verifikasi
-    // Jika username ketemu AND password yang diketik cocok dengan hash di database
-    if ($user_data && password_verify($input_pass, $user_data['password'])) {
-        
-        // C. Buat Tiket Sesi!
-        $_SESSION['status_login'] = true;
-        $_SESSION['admin_name'] = $user_data['username'];
-        
-        // D. Buka pintu ke Dashboard
-        header("Location: dashboard.php");
-        exit;
-    } else {
-        $error = "Username atau Password salah!";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -66,14 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2>Panel Admin</h2>
         
         <!-- Menampilkan pesan error jika login gagal -->
-        <?php if ($error): ?>
-            <div class="error-msg"><?= $error ?></div>
-        <?php endif; ?>
+        @if($errors->any())
+            <div class="error-msg">{{ $errors->first() }}</div>
+        @endif
 
-        <form method="POST" action="">
+        <form method="POST" action="{{ url('admin/login') }}">
+            @csrf
             <div class="form-group">
                 <label>Username</label>
-                <input type="text" name="username" required autocomplete="off">
+                <input type="text" name="username" value="{{ old('username') }}" required autocomplete="off">
             </div>
             <div class="form-group">
                 <label>Password</label>
