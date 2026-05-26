@@ -349,3 +349,44 @@ body.dark-mode .social-icons img {
     margin: 0;
     line-height: 1.5;
 }
+
+/* --- SECTION: IJEN GEOPARK INTRO --- */
+.ijen-geopark-intro {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ijen-geopark-intro .ijen-container {
+    max-width: 700px;
+    text-align: center;
+}
+
+.ijen-geopark-intro .ijen-title {
+    color: #000000;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.ijen-geopark-intro .ijen-subtitle {
+    color: #737373;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.ijen-geopark-intro .ijen-description {
+    color: #333333;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 660px;
+}

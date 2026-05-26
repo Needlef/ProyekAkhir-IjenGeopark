@@ -349,3 +349,60 @@ body.dark-mode .social-icons img {
     margin: 0;
     line-height: 1.5;
 }
+/* --- SECTION: IJEN GEOPARK INTRO--- */
+.ijen-geopark-intro {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    padding: 100px 20px; /* Menambah ruang kosong di atas dan bawah agar lebih lega */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ijen-geopark-intro .ijen-container {
+    max-width: 900px; /* Wadah utama diperlebar */
+    text-align: center;
+}
+
+.ijen-geopark-intro .ijen-title {
+    color: #000000;
+    font-size: 46px; /* Ukuran judul diperbesar secara signifikan */
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.ijen-geopark-intro .ijen-subtitle {
+    color: #737373;
+    font-size: 16px; /* Subjudul sedikit diperbesar */
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.ijen-geopark-intro .ijen-description {
+    color: #333333;
+    font-size: 18px; /* Ukuran teks paragraf diperbesar agar mudah dibaca */
+    line-height: 1.7;
+    margin: 0 auto;
+    max-width: 820px; /* Area paragraf diperlebar agar letak turun barisnya (wrap) pas */
+}
+
+/* --- DARK MODE: IJEN GEOPARK INTRO --- */
+body.dark-mode .ijen-geopark-intro {
+    background-color: #1a1a1a; /* Menyamakan dengan warna background body dark mode */
+}
+
+body.dark-mode .ijen-geopark-intro .ijen-title {
+    color: #ffffff; /* Mengubah warna judul menjadi putih agar kontras */
+}
+
+body.dark-mode .ijen-geopark-intro .ijen-subtitle {
+    color: #a0a0a0; /* Mengubah warna subjudul menjadi abu-abu terang */
+}
+
+body.dark-mode .ijen-geopark-intro .ijen-description {
+    color: #cccccc; /* Mengubah warna teks paragraf menjadi abu-abu agar nyaman dibaca di layar gelap */
+}

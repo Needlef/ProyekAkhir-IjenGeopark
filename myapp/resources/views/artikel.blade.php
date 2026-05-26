@@ -12,6 +12,16 @@
         }
     @endphp
 
+    <header>
+        <nav>
+            <div class="logo">Ijen Geopark</div>
+            <div class="nav-right">
+                <button id="theme-toggle" class="theme-btn" title="Toggle dark theme">☀️</button>
+                <a href="#" class="contact-link">Contact</a>
+            </div>
+        </nav>
+    </header>
+    
     <!-- BAGIAN HERO GAMBAR UTAMA -->
     <section class="hero-article" style="width: 100%; height: 400px; overflow: hidden; position: relative;">
             <img src="{{ $sumber_gambar }}" style="
@@ -38,4 +48,6 @@
             <p>{!! nl2br(htmlspecialchars($artikel->konten)) !!}</p>
         </div>
     </main>
+
+    <script src="{{ asset('script.js') }}"></script>
 @endsection

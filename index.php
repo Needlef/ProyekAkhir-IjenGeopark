@@ -25,7 +25,6 @@ $faq_data = $stmt_faq->fetchAll(PDO::FETCH_ASSOC);
     <header>
         <nav>
             <div class="logo">Ijen Geopark</div>
-            <a href="#" class="contact-link">Contact</a>
             <div class="nav-right">
                 <button id="theme-toggle" class="theme-btn" title="Toggle dark theme">🌙</button>
                 <a href="#" class="contact-link">Contact</a>
@@ -37,6 +36,22 @@ $faq_data = $stmt_faq->fetchAll(PDO::FETCH_ASSOC);
         <div class="hero-text">
             <h1>Ijen Geopark</h1>
             <p>Find the majestic of Java</p>
+        </div>
+    </section>
+
+    <section class="ijen-geopark-intro">
+        <div class="ijen-container">
+            <h2 class="ijen-title">Welcome to Ijen UNESCO Global Geopark</h2>
+            <p class="ijen-subtitle">Go ahead and say just a little more about what you do.</p>
+            
+            <p class="ijen-description">
+                Spanning across the Banyuwangi and Bondowoso regencies, Ijen Geopark is a 
+                world-class destination recognized by UNESCO. It is a living laboratory of the 
+                Earth's evolution, offering a unique blend of mesmerizing volcanic landscapes, 
+                lush highland ecosystems, and the enduring heritage of the local communities. 
+                Whether you are an adventurer, a nature lover, or a culture enthusiast, Ijen 
+                offers an unforgettable journey into the heart of Java.
+            </p>
         </div>
     </section>
 
@@ -137,7 +152,7 @@ $faq_data = $stmt_faq->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 
 </body>
 </html>

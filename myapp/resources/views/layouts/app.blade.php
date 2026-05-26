@@ -12,7 +12,7 @@
         <nav>
             <div class="logo"><a href="{{ url('/') }}" style="text-decoration:none; color:inherit;">Ijen Geopark</a></div>
             <div class="nav-right">
-                <button id="theme-toggle" class="theme-btn" title="Toggle dark theme">🌙</button>
+                <button id="theme-toggle" class="theme-btn" title="Toggle dark theme">☀️</button>
                 <a href="#" class="contact-link">Contact</a>
             </div>
         </nav>
