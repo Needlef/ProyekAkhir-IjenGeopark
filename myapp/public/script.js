@@ -37,3 +37,28 @@ daftarPertanyaan.forEach(function(tombol) {
         
     });
 });
+
+// AJAX Refresh Artikel
+const btnRefreshArtikel = document.getElementById('btn-refresh-artikel');
+const artikelContainer = document.getElementById('artikel-container');
+
+if (btnRefreshArtikel && artikelContainer) {
+    btnRefreshArtikel.addEventListener('click', function() {
+        btnRefreshArtikel.innerHTML = '⏳';
+        btnRefreshArtikel.disabled = true;
+
+        fetch('/ajax/artikel')
+            .then(response => response.text())
+            .then(html => {
+                artikelContainer.innerHTML = html;
+                btnRefreshArtikel.innerHTML = '🔄';
+                btnRefreshArtikel.disabled = false;
+            })
+            .catch(error => {
+                console.error('Error fetching articles:', error);
+                btnRefreshArtikel.innerHTML = '🔄';
+                btnRefreshArtikel.disabled = false;
+                alert('Gagal memuat artikel.');
+            });
+    });
+}

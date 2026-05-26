@@ -21,4 +21,10 @@ class HomeController extends Controller
         $artikel = Artikel::findOrFail($id);
         return view('artikel', compact('artikel'));
     }
+
+    public function getArtikelAjax()
+    {
+        $artikel_data = Artikel::orderBy('id', 'DESC')->get();
+        return view('partials.artikel_list', compact('artikel_data'))->render();
+    }
 }

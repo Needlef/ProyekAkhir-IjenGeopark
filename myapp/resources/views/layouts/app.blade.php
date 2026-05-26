@@ -12,6 +12,9 @@
         <nav>
             <div class="logo"><a href="{{ url('/') }}" style="text-decoration:none; color:inherit;">Ijen Geopark</a></div>
             <div class="nav-right">
+                @if(request()->is('/'))
+                    <button id="btn-refresh-artikel" class="theme-btn" title="Refresh Artikel">🔄</button>
+                @endif
                 <button id="theme-toggle" class="theme-btn" title="Toggle dark theme">☀️</button>
                 <a href="#" class="contact-link">Contact</a>
             </div>
