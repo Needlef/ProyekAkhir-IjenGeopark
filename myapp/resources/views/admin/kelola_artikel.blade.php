@@ -24,7 +24,7 @@
                         if (strpos($row->gambar, 'http') === 0) {
                             $bg_image = htmlspecialchars($row->gambar);
                         } else {
-                            $bg_image = "/uploads/" . htmlspecialchars($row->gambar);
+                            $bg_image = asset('uploads/' . $row->gambar);
                         }
                     @endphp
                     <div style="width: 100px; aspect-ratio: 21/9; overflow: hidden; position: relative; border-radius: 4px; display: inline-block;">
