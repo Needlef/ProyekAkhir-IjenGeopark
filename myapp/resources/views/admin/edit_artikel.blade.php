@@ -49,7 +49,7 @@
                 if (strpos($artikel->gambar, 'http') === 0) {
                     $sumber_gambar = htmlspecialchars($artikel->gambar);
                 } else {
-                    $sumber_gambar = "/uploads/" . htmlspecialchars($artikel->gambar);
+                    $sumber_gambar = asset("uploads/" . $artikel->gambar);
                 }
             @endphp
             
@@ -150,7 +150,7 @@
             else if (urlInput) {
                 // Jika itu nama file lokal (tidak berawalan http), tambahkan path /uploads/
                 if (!urlInput.startsWith('http') && !urlInput.startsWith('/')) {
-                    urlInput = '/uploads/' + urlInput;
+                    urlInput = '{{ asset("uploads") }}/' + urlInput;
                 }
                 
                 img.src = urlInput;

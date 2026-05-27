@@ -8,7 +8,7 @@
         if (strpos($artikel->gambar, 'http') === 0) {
             $sumber_gambar = htmlspecialchars($artikel->gambar);
         } else {
-            $sumber_gambar = "/uploads/" . htmlspecialchars($artikel->gambar);
+            $sumber_gambar = asset("uploads/" . $artikel->gambar);
         }
     @endphp
 

@@ -5,7 +5,7 @@
             if (strpos($row->gambar, 'http') === 0) {
                 $bg_image = htmlspecialchars($row->gambar);
             } else {
-                $bg_image = "uploads/" . htmlspecialchars($row->gambar);
+                $bg_image = asset("uploads/" . $row->gambar);
             }
         @endphp
         
