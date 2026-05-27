@@ -6,7 +6,7 @@
     <title>@yield('title', 'Dashboard Admin - Ijen Geopark')</title>
     <style>
         body { font-family: sans-serif; margin: 0; background: #f4f4f4; display: flex; }
-        .sidebar { width: 250px; background: #222; color: white; height: 100vh; padding: 20px; box-sizing: border-box; }
+        .sidebar { width: 250px; background: #222; color: white; min-height: 100vh; padding: 20px; box-sizing: border-box; }
         .sidebar h2 { margin-top: 0; font-size: 20px; border-bottom: 1px solid #444; padding-bottom: 10px; }
         .sidebar a { display: block; color: #ddd; text-decoration: none; padding: 10px 0; border-bottom: 1px solid #333; }
         .sidebar a:hover { color: white; padding-left: 5px; transition: 0.3s; }

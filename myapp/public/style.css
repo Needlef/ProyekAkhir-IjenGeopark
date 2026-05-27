@@ -51,14 +51,44 @@ header nav {
 .theme-btn {
     background: none;
     border: none;
-    font-size: 20px;
     cursor: pointer;
     transition: transform 0.3s ease;
     padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .theme-btn:hover {
     transform: scale(1.2);
+}
+
+.theme-btn img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    filter: brightness(0.2);
+    /* Gelap di light mode */
+    transition: filter 0.3s ease;
+}
+
+body.dark-mode .theme-btn img {
+    filter: brightness(1);
+    /* Terang di dark mode */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(1080deg);
+    }
+}
+
+.theme-btn.spinning img {
+    animation: spin 1s linear infinite;
 }
 
 .contact-link {
@@ -565,12 +595,16 @@ body.dark-mode .ijen-geopark-intro .ijen-description {
         flex-direction: column;
         text-align: left;
     }
+
     .contact-image img {
-        height: 300px; /* Lebih proporsional di layar handphone */
+        height: 300px;
+        /* Lebih proporsional di layar handphone */
     }
+
     .contact-info h1 {
         font-size: 28px;
-        white-space: normal; /* Biarkan melipat jika di layar hp yang sangat kecil */
+        white-space: normal;
+        /* Biarkan melipat jika di layar hp yang sangat kecil */
     }
 }
 
