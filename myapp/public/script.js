@@ -12,11 +12,11 @@ if (themeToggle && themeIcon) {
         themeIcon.src = moonIconPath;
     }
 
-    themeToggle.addEventListener('click', function() {
+    themeToggle.addEventListener('click', function () {
         document.body.classList.toggle('dark-mode');
-        
+
         if (document.body.classList.contains('dark-mode')) {
-            themeIcon.src = moonIconPath; 
+            themeIcon.src = moonIconPath;
             localStorage.setItem('darkMode', 'true');
         } else {
             themeIcon.src = sunIconPath;
@@ -29,18 +29,18 @@ if (themeToggle && themeIcon) {
 //FAQ
 const daftarPertanyaan = document.querySelectorAll('.faq-question');
 
-daftarPertanyaan.forEach(function(tombol) {
-    
-    tombol.addEventListener('click', function() {
-        
+daftarPertanyaan.forEach(function (tombol) {
+
+    tombol.addEventListener('click', function () {
+
         const jawaban = this.nextElementSibling;
-        
+
         if (jawaban.style.maxHeight) {
             jawaban.style.maxHeight = null;
         } else {
             jawaban.style.maxHeight = jawaban.scrollHeight + "px";
         }
-        
+
     });
 });
 
@@ -49,11 +49,11 @@ const btnRefreshArtikel = document.getElementById('btn-refresh-artikel');
 const artikelContainer = document.getElementById('artikel-container');
 
 if (btnRefreshArtikel && artikelContainer) {
-    btnRefreshArtikel.addEventListener('click', function() {
+    btnRefreshArtikel.addEventListener('click', function () {
         btnRefreshArtikel.classList.add('spinning');
         btnRefreshArtikel.disabled = true;
 
-        fetch('/ajax/artikel')
+        fetch('ajax/artikel')
             .then(response => response.text())
             .then(html => {
                 artikelContainer.innerHTML = html;
