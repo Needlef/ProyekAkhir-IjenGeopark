@@ -12,7 +12,7 @@
         }
     @endphp
 
-    <header>
+    <!-- <header>
         <nav>
             <div class="logo">Ijen Geopark</div>
             <div class="nav-right">
@@ -20,7 +20,7 @@
                 <a href="#" class="contact-link">Contact</a>
             </div>
         </nav>
-    </header>
+    </header> -->
     
     <!-- BAGIAN HERO GAMBAR UTAMA -->
     <section class="hero-article" style="width: 100%; height: 400px; overflow: hidden; position: relative;">

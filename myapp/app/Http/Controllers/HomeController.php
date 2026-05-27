@@ -27,4 +27,9 @@ class HomeController extends Controller
         $artikel_data = Artikel::orderBy('id', 'DESC')->get();
         return view('partials.artikel_list', compact('artikel_data'))->render();
     }
+
+    public function contact()
+    {
+        return view('contact');
+    }
 }

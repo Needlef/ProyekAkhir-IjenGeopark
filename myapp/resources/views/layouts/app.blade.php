@@ -13,10 +13,14 @@
             <div class="logo"><a href="{{ url('/') }}" style="text-decoration:none; color:inherit;">Ijen Geopark</a></div>
             <div class="nav-right">
                 @if(request()->is('/'))
-                    <button id="btn-refresh-artikel" class="theme-btn" title="Refresh Artikel">🔄</button>
+                    <button id="btn-refresh-artikel" class="theme-btn" title="Refresh Artikel"><img src="{{ asset('ui/refresh_64dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png') }}" alt="Refresh"></button>
                 @endif
-                <button id="theme-toggle" class="theme-btn" title="Toggle dark theme">☀️</button>
-                <a href="#" class="contact-link">Contact</a>
+                <button id="theme-toggle" class="theme-btn" title="Toggle dark theme"
+                        data-sun-icon="{{ asset('ui/sunny_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png') }}"
+                        data-moon-icon="{{ asset('ui/moon_stars_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png') }}">
+                    <img src="{{ asset('ui/sunny_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png') }}" alt="Theme Toggle">
+                </button>
+                <a href="{{ route('contact') }}" class="contact-link">Contact</a>
             </div>
         </nav>
     </header>
@@ -46,7 +50,7 @@
                 </div>
                 <div class="footer-column">
                     <h4>Support</h4>
-                    <ul><li>Contact</li><li>Support</li><li>Legal</li></ul>
+                    <ul><li><a href="{{ route('contact') }}">Contact</a></li><li>Support</li><li>Legal</li></ul>
                 </div>
             </div>
         </div>

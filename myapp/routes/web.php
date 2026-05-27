@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/artikel/{id}', [HomeController::class, 'show']);
 Route::get('/ajax/artikel', [HomeController::class, 'getArtikelAjax']);
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
 // Auth Routes
 Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('login');
