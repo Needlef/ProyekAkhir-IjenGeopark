@@ -16,7 +16,7 @@
                     <button id="btn-refresh-artikel" class="theme-btn" title="Refresh Artikel">🔄</button>
                 @endif
                 <button id="theme-toggle" class="theme-btn" title="Toggle dark theme">☀️</button>
-                <a href="#" class="contact-link">Contact</a>
+                <a href="{{ route('contact') }}" class="contact-link">Contact</a>
             </div>
         </nav>
     </header>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="footer-column">
                     <h4>Support</h4>
-                    <ul><li>Contact</li><li>Support</li><li>Legal</li></ul>
+                    <ul><li><a href="{{ route('contact') }}">Contact</a></li><li>Support</li><li>Legal</li></ul>
                 </div>
             </div>
         </div>
