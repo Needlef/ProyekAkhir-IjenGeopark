@@ -9,7 +9,7 @@
             }
         @endphp
         
-            <div class="card">
+            <div class="card" data-id="{{ $row->id }}">
                 <div style="width: 100%; aspect-ratio: 21/9; overflow: hidden; position: relative; border-radius: 12px 12px 0 0;">
                     <img src="{{ $bg_image }}" style="
                         position: absolute;
