@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artikel;
 use App\Models\Faq;
+use App\Models\CustomerStory;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,7 +13,8 @@ class AdminController extends Controller
     {
         $total_artikel = Artikel::count();
         $total_faq = Faq::count();
-        return view('admin.dashboard', compact('total_artikel', 'total_faq'));
+        $total_customer_stories = CustomerStory::count();
+        return view('admin.dashboard', compact('total_artikel', 'total_faq', 'total_customer_stories'));
     }
 
     // ARTIKEL
@@ -121,5 +123,69 @@ class AdminController extends Controller
         $faq = Faq::findOrFail($id);
         $faq->delete();
         return redirect('/admin/kelola_faq')->with('success', 'FAQ berhasil dihapus');
+    }
+
+    // CUSTOMER STORIES
+    public function kelolaCustomerStories()
+    {
+        $stories = CustomerStory::orderBy('id', 'DESC')->get();
+        return view('admin.kelola_customer_stories', compact('stories'));
+    }
+
+    public function storeCustomerStories(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'visitor_name' => 'required'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $data['image'] = $filename;
+        } elseif ($request->filled('image_url')) {
+            $data['image'] = $request->input('image_url');
+        }
+
+        CustomerStory::create($data);
+        return redirect('/admin/kelola_customer_stories')->with('success', 'Customer story berhasil ditambahkan');
+    }
+
+    public function editCustomerStories($id)
+    {
+        $story = CustomerStory::findOrFail($id);
+        return view('admin.edit_customer_stories', compact('story'));
+    }
+
+    public function updateCustomerStories(Request $request, $id)
+    {
+        $story = CustomerStory::findOrFail($id);
+
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'visitor_name' => 'required'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $data['image'] = $filename;
+        } elseif ($request->filled('image_url')) {
+            $data['image'] = $request->input('image_url');
+        }
+
+        $story->update($data);
+        return redirect('/admin/kelola_customer_stories')->with('success', 'Customer story berhasil diubah');
+    }
+
+    public function destroyCustomerStories($id)
+    {
+        $story = CustomerStory::findOrFail($id);
+        $story->delete();
+        return redirect('/admin/kelola_customer_stories')->with('success', 'Customer story berhasil dihapus');
     }
 }

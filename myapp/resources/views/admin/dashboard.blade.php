@@ -10,5 +10,6 @@
         <br>
         <p>Total Artikel: <strong>{{ $total_artikel }}</strong></p>
         <p>Total FAQ: <strong>{{ $total_faq }}</strong></p>
+        <p>Total Customer Stories: <strong>{{ $total_customer_stories }}</strong></p>
     </div>
 @endsection

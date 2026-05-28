@@ -34,6 +34,42 @@
         </div>
     </section>
 
+    <section class="cards-section">
+        <div class="section-header">
+            <h2>Customer Stories</h2>
+            <a href="{{ url('/customer-stories') }}" class="btn-view-more">
+                Lihat Lebih Banyak &rarr;
+            </a>
+        </div>
+
+        <div class="cards-container">
+            @forelse($stories_data as $story)
+            <a href="{{ url('/customer-stories/' . $story->id) }}" class="story-link-wrapper">
+                <div class="card story-card">
+                    
+                    <div class="card-img" style="background-image: url('@php
+                        if ($story->image && strpos($story->image, 'http') === 0) {
+                            echo htmlspecialchars($story->image);
+                        } else if ($story->image) {
+                            echo asset("uploads/" . $story->image);
+                        } 
+                    @endphp');"></div>
+                    
+                    <div class="card-body">
+                        <h3>"{{ htmlspecialchars($story->title) }}"</h3>
+                        <p class="story-desc">{{ htmlspecialchars($story->description) }}</p>
+                        <p class="visitor-name">&mdash; {{ htmlspecialchars($story->visitor_name) }}</p>
+                    </div>
+                </div>
+            </a>
+            @empty
+            <div class="empty-stories">
+                <p>Belum ada customer story.</p>
+            </div>
+            @endforelse
+        </div>
+    </section>
+
     <!-- BAGIAN FAQ (DINAMIS DARI DATABASE) -->
     <section class="faq-section">
         <div class="container">

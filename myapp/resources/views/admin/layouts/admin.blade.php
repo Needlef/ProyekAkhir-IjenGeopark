@@ -37,6 +37,7 @@
         <a href="{{ url('admin/dashboard') }}">🏠 Dashboard</a>
         <a href="{{ url('admin/kelola_artikel') }}">📝 Kelola Artikel</a>
         <a href="{{ url('admin/kelola_faq') }}">❓ Kelola FAQ</a>
+        <a href="{{ url('admin/kelola_customer_stories') }}">⭐ Kelola Customer Stories</a>
         <a href="{{ url('admin/logout') }}" class="logout-btn"> Keluar (Logout)</a>
     </div>
 
