@@ -3,6 +3,10 @@
 @section('title', 'Kelola Artikel - Ijen Geopark')
 
 @section('content')
+    <!-- Tambahkan Library Cropper.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
     <div class="card">
         <h2>Kelola Artikel</h2>
         <a href="#form-tambah" class="action-btn btn-add">+ Tambah Artikel Baru</a>
@@ -93,38 +97,93 @@
             </div>
 
             <hr style="margin:20px 0; border:1px solid #eee;">
-            <h4>Pengaturan Gambar Hero</h4>
+            <h4>Pengaturan Gambar Hero & Posisi Crop</h4>
             
-            <div class="form-group">
-                <label>Opsi 1: Upload File Gambar</label>
-                <input type="file" name="gambar" accept="image/*">
-            </div>
-            <div style="text-align:center; font-weight:bold; margin: 10px 0;">-- ATAU --</div>
-            <div class="form-group">
-                <label>Opsi 2: Masukkan URL Gambar (http/https)</label>
-                <input type="text" name="gambar_url" placeholder="https://example.com/image.jpg">
-            </div>
+            <div style="background: #e9ecef; padding: 15px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;">
+                <p style="font-size: 13px; color: #555; margin-bottom: 15px;"><i>Pilih gambar (File / URL Cloud) lalu klik tombol Load Preview di bawah untuk mengatur posisi Crop.</i></p>
 
-            <div style="display:flex; gap:10px;">
-                <div class="form-group" style="flex:1;">
-                    <label>Width (%)</label>
-                    <input type="number" name="css_width" value="100" step="0.001">
+                <div class="form-group">
+                    <label>Opsi 1: Upload File Gambar (Lokal)</label>
+                    <input type="file" name="gambar" id="fileInputTambah" accept="image/*">
                 </div>
-                <div class="form-group" style="flex:1;">
-                    <label>Height (%)</label>
-                    <input type="number" name="css_height" value="100" step="0.001">
+                
+                <div style="text-align:center; font-weight:bold; margin: 10px 0;">-- ATAU --</div>
+                
+                <div class="form-group">
+                    <label>Opsi 2: Masukkan URL Gambar (http/https)</label>
+                    <input type="text" name="gambar_url" id="gambarUrlTambah" placeholder="https://example.com/image.jpg">
                 </div>
-                <div class="form-group" style="flex:1;">
-                    <label>Left (%)</label>
-                    <input type="number" name="css_left" value="0" step="0.001">
+
+                <button type="button" id="btnPreviewTambah" class="action-btn" style="background: #17a2b8;">Load Preview & Atur Crop</button>
+                
+                <!-- Tempat Preview Cropper -->
+                <div id="cropAreaTambah" style="margin-top: 15px; max-height: 400px; display: none;">
+                    <img id="imageToCropTambah" style="max-width: 100%;">
                 </div>
-                <div class="form-group" style="flex:1;">
-                    <label>Top (%)</label>
-                    <input type="number" name="css_top" value="0" step="0.001">
-                </div>
+                
+                <!-- Input tersembunyi untuk nilai crop -->
+                <input type="hidden" name="css_width" id="cssWidthTambah" value="100">
+                <input type="hidden" name="css_height" id="cssHeightTambah" value="100">
+                <input type="hidden" name="css_left" id="cssLeftTambah" value="0">
+                <input type="hidden" name="css_top" id="cssTopTambah" value="0">
             </div>
 
             <button type="submit">Simpan Artikel</button>
         </form>
     </div>
+
+    <script>
+        let cropperTambah;
+        const imgTambah = document.getElementById('imageToCropTambah');
+        const cropAreaTambah = document.getElementById('cropAreaTambah');
+
+        function initCropperTambah() {
+            if(cropperTambah) cropperTambah.destroy();
+            
+            imgTambah.onload = function() {
+                cropperTambah = new Cropper(imgTambah, {
+                    aspectRatio: 21 / 9, 
+                    viewMode: 1,
+                    crop: function(event) {
+                        const data = event.detail; 
+                        const natW = imgTambah.naturalWidth;
+                        const natH = imgTambah.naturalHeight;
+                        
+                        if(data.width > 0 && data.height > 0) {
+                            const cssW = (natW / data.width) * 100;
+                            const cssH = (natH / data.height) * 100;
+                            const cssL = -(data.x / data.width) * 100;
+                            const cssT = -(data.y / data.height) * 100;
+                            
+                            document.getElementById('cssWidthTambah').value = cssW;
+                            document.getElementById('cssHeightTambah').value = cssH;
+                            document.getElementById('cssLeftTambah').value = cssL;
+                            document.getElementById('cssTopTambah').value = cssT;
+                        }
+                    }
+                });
+            };
+        }
+
+        document.getElementById('btnPreviewTambah').addEventListener('click', function() {
+            const fileInput = document.getElementById('fileInputTambah');
+            let urlInput = document.getElementById('gambarUrlTambah').value.trim();
+            
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imgTambah.src = e.target.result;
+                    cropAreaTambah.style.display = 'block';
+                    initCropperTambah();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else if (urlInput) {
+                imgTambah.src = urlInput;
+                cropAreaTambah.style.display = 'block';
+                initCropperTambah();
+            } else {
+                alert("Pilih file gambar atau masukkan URL terlebih dahulu!");
+            }
+        });
+    </script>
 @endsection
