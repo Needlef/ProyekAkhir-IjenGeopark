@@ -46,7 +46,7 @@
                 </div>
                 <div class="footer-column">
                     <h4>Learn more</h4>
-                    <ul><li>Blog</li><li>Case studies</li><li>Customer stories</li><li>Best practices</li></ul>
+                    <ul><li>Blog</li><li>Case studies</li><li><a href="{{ route('customer-stories') }}">Customer stories</a></li><li>Best practices</li></ul>
                 </div>
                 <div class="footer-column">
                     <h4>Support</h4>

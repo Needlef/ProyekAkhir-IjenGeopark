@@ -108,19 +108,19 @@
             <div style="display:flex; gap:10px;">
                 <div class="form-group" style="flex:1;">
                     <label>Width (%)</label>
-                    <input type="number" name="css_width" value="100" step="0.001">
+                    <input type="number" name="css_width" value="100" step="0.1">
                 </div>
                 <div class="form-group" style="flex:1;">
                     <label>Height (%)</label>
-                    <input type="number" name="css_height" value="100" step="0.001">
+                    <input type="number" name="css_height" value="100" step="0.1">
                 </div>
                 <div class="form-group" style="flex:1;">
                     <label>Left (%)</label>
-                    <input type="number" name="css_left" value="0" step="0.001">
+                    <input type="number" name="css_left" value="0" step="0.1">
                 </div>
                 <div class="form-group" style="flex:1;">
                     <label>Top (%)</label>
-                    <input type="number" name="css_top" value="0" step="0.001">
+                    <input type="number" name="css_top" value="0" step="0.1">
                 </div>
             </div>
 
