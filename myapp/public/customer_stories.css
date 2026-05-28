@@ -1,0 +1,115 @@
+/* --- HALAMAN CUSTOMER STORIES --- */
+.hero-stories {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                url('https://asset.kompas.com/crops/fu2SL2EKEzm5evOAXDv-SyvvD9Y=/0x0:1200x800/1200x800/data/photo/2021/08/19/611e162fed8b4.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 40vh; /* Sedikit lebih pendek dari hero beranda */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-stories h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    font-family: serif; /* Meniru font serif pada "Ijen Geopark" di gambar */
+}
+
+.hero-stories p {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.customer-stories-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 5%;
+}
+
+.story-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.story-card {
+    transition: transform 0.2s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-8px);
+}
+
+.story-excerpt {
+    max-height: 80px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.story-card .visitor-name {
+    font-weight: 700;
+    color: #000;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+/* Header section (Judul & Tombol) */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Tombol Lihat Lebih Banyak */
+.btn-view-more {
+    color: #333;
+    background-color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-view-more:hover {
+    background-color: #333;
+    color: white;
+}
+
+/* Wrapper Link untuk setiap Card */
+.story-link-wrapper {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .story-card .visitor-name {
+    color: #fff;
+}
+
+body.dark-mode .btn-view-more {
+    color: #e0e0e0;
+    background-color: #1a1a1a;
+    border-color: #e0e0e0;
+}
+
+body.dark-mode .btn-view-more:hover {
+    background-color: #e0e0e0;
+    color: #1a1a1a;
+}

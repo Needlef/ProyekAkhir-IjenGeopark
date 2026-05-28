@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <h3>{{ htmlspecialchars($row->judul) }}</h3>
                     <p>{{ htmlspecialchars($row->ringkasan) }}</p>
-                    <a href="{{ url('artikel/' . $row->id) }}" class="cta-link">Call to action &rarr;</a>
+                    <a href="{{ url('artikel/' . $row->id) }}" class="cta-link">Baca Selengkapnya &rarr;</a>
                 </div>
             </div>
     @endforeach

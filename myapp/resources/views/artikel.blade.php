@@ -2,6 +2,10 @@
 
 @section('title', htmlspecialchars($artikel->judul) . ' - Ijen Geopark')
 
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('artikel.css') }}">
+@endsection
+
 @section('content')
     @php
         // Logika gambar (URL vs Fisik)

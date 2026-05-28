@@ -1,0 +1,108 @@
+/* --- HALAMAN KONTAK --- */
+.contact-page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 5%;
+}
+
+.contact-section {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.contact-image {
+    flex: 1;
+}
+
+.contact-image img {
+    width: 100%;
+    height: 450px;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+    background-color: #dcf5b5;
+    /* Warna hijau muda sebagai fallback/placeholder */
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-info h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 30px;
+    white-space: nowrap;
+}
+
+.contact-info h3 {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.contact-info p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.contact-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 40px;
+    margin-top: 20px;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-item h3 {
+    margin-bottom: 8px;
+}
+
+.contact-item p {
+    margin-bottom: 0;
+}
+
+/* Responsive Halaman Kontak */
+@media (max-width: 768px) {
+    .contact-section {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .contact-image img {
+        height: 300px;
+        /* Lebih proporsional di layar handphone */
+    }
+
+    .contact-info h1 {
+        font-size: 28px;
+        white-space: normal;
+        /* Biarkan melipat jika di layar hp yang sangat kecil */
+    }
+
+    .contact-items {
+        grid-template-columns: 1fr;
+        gap: 20px 0;
+    }
+}
+
+/* Dark Mode Halaman Kontak */
+body.dark-mode .contact-info h1 {
+    color: #ffffff;
+}
+
+body.dark-mode .contact-info h3 {
+    color: #a0a0a0;
+}
+
+body.dark-mode .contact-info p {
+    color: #cccccc;
+}

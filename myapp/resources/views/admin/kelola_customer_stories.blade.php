@@ -3,7 +3,7 @@
 @section('title', 'Kelola Customer Stories - Ijen Geopark')
 
 @section('content')
-    <div class="card">
+    <div class="card admin-card">
         <h2>Kelola Customer Stories</h2>
         <a href="#form-tambah" class="action-btn btn-add">+ Tambah Customer Story Baru</a>
 
@@ -19,7 +19,7 @@
             @foreach($stories as $row)
             <tr>
                 <td>{{ $row->id }}</td>
-                <td style="width: 120px; text-align: center;">
+                <td class="preview-cell">
                     @php
                         if ($row->image && strpos($row->image, 'http') === 0) {
                             $bg_image = htmlspecialchars($row->image);
@@ -27,20 +27,16 @@
                             $bg_image = $row->image ? asset("uploads/" . $row->image) : 'https://via.placeholder.com/100?text=No+Image';
                         }
                     @endphp
-                    <div style="width: 100px; height: 100px; overflow: hidden; position: relative; border-radius: 4px; display: inline-block;">
-                        <img src="{{ $bg_image }}" style="
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        ">
+                    <div class="image-preview-wrapper">
+                        <img src="{{ $bg_image }}" class="image-preview">
                     </div>
                 </td>
                 <td>{{ htmlspecialchars(substr($row->title, 0, 50)) }}{{ strlen($row->title) > 50 ? '...' : '' }}</td>
                 <td>{{ htmlspecialchars($row->visitor_name) }}</td>
                 <td>
-                    <div style="display: flex; gap: 5px;">
+                    <div class="action-group">
                         <a href="{{ url('admin/customer_stories/'.$row->id.'/edit') }}" class="action-btn btn-edit">Edit</a>
-                        <form action="{{ url('admin/customer_stories/'.$row->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Yakin ingin menghapus customer story ini?');">
+                        <form action="{{ url('admin/customer_stories/'.$row->id) }}" method="POST" class="inline-form" onsubmit="return confirm('Yakin ingin menghapus customer story ini?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="action-btn btn-delete">Hapus</button>
@@ -50,19 +46,19 @@
             </tr>
             @endforeach
             @if(count($stories) == 0)
-            <tr><td colspan="5" style="text-align:center;">Belum ada customer story.</td></tr>
+            <tr class="empty-row"><td colspan="5">Belum ada customer story.</td></tr>
             @endif
         </table>
     </div>
 
-    <hr style="margin: 30px 0; border: 1px solid #eee;">
+    <hr class="section-divider">
 
     <!-- Form Tambah Customer Story -->
     <div class="card" id="form-tambah">
         <h2>Tambah Customer Story Baru</h2>
         
         @if($errors->any())
-            <div style="color:red; margin-bottom:15px;">
+            <div class="form-errors">
                 <ul>
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -94,14 +90,14 @@
                 <input type="file" name="image" accept="image/*">
             </div>
 
-            <div style="text-align:center; font-weight:bold; margin: 10px 0;">-- ATAU --</div>
+            <div class="divider-text">-- ATAU --</div>
 
             <div class="form-group">
                 <label>Opsi 2: URL Gambar Cloud</label>
                 <input type="text" name="image_url" placeholder="https://example.com/image.jpg">
             </div>
 
-            <button type="submit" class="action-btn btn-add" style="font-size: 16px;">Simpan Customer Story</button>
+            <button type="submit" class="action-btn btn-add large-btn">Simpan Customer Story</button>
         </form>
     </div>
 @endsection

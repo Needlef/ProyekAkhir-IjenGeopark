@@ -2,6 +2,11 @@
 
 @section('title', 'Ijen Geopark - Beranda')
 
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('home.css') }}">
+    <link rel="stylesheet" href="{{ asset('faq.css') }}">
+@endsection
+
 @section('content')
     <section class="hero-index">
         <div class="hero-text">

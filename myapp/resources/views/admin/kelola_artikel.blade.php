@@ -12,7 +12,7 @@
             <h2 style="margin: 0;">Kelola Artikel</h2>
             <div style="display: flex; gap: 10px; align-items: center;">
                 <input type="text" id="search-kelola" placeholder="Cari artikel..." style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; outline: none; min-width: 200px;">
-                <a href="#form-tambah" class="action-btn btn-add" style="margin: 0;">+ Tambah Artikel Baru</a>
+                <a href="#form-tambah" class="action-btn btn-add" style="margin: 0;">+ Tambah Artikel</a>
             </div>
         </div>
 
@@ -70,7 +70,7 @@
 
     <!-- Form Tambah -->
     <div class="card" id="form-tambah" style="margin-top: 30px;">
-        <h3>Tambah Artikel Baru</h3>
+        <h3>Tambah Artikel</h3>
         
         @if($errors->any())
             <div style="color:red; margin-bottom:15px;">

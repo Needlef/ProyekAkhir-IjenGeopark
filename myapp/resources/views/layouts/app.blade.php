@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Ijen Geopark')</title>
     <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('ijen_geopark.css') }}">
+    @yield('page-css')
 </head>
 <body>
 
@@ -34,23 +36,19 @@
                 <p>Find the majestic of Java</p>
                 <div class="social-icons">
                     <a href="#"><img src="https://e7.pngegg.com/pngimages/624/712/png-clipart-instagram-logo-logo-computer-icons-insta-miscellaneous-sticker.png" alt="Instagram"></a>
-                    <a href="#"><img src="https://png.pngtree.com/element_our/md/20180626/md_5b32227feb591.jpg" alt="LinkedIn"></a>
+                    <!-- <a href="#"><img src="https://png.pngtree.com/element_our/md/20180626/md_5b32227feb591.jpg" alt="LinkedIn"></a> -->
                     <a href="#"><img src="https://img.freepik.com/free-vector/twitter-new-2023-x-logo-white-background-vector_1017-45422.jpg?semt=ais_hybrid&w=740&q=80" alt="X"></a>
                 </div>
             </div>
             
             <div class="footer-links-container">
                 <div class="footer-column">
-                    <h4>Features</h4>
-                    <ul><li>Core features</li><li>Pro experience</li><li>Integrations</li></ul>
-                </div>
-                <div class="footer-column">
                     <h4>Learn more</h4>
-                    <ul><li>Blog</li><li>Case studies</li><li><a href="{{ route('customer-stories') }}">Customer stories</a></li><li>Best practices</li></ul>
+                    <ul><li><a href="{{ route('customer-stories') }}">Customer stories</a></li></ul>
                 </div>
                 <div class="footer-column">
                     <h4>Support</h4>
-                    <ul><li><a href="{{ route('contact') }}">Contact</a></li><li>Support</li><li>Legal</li></ul>
+                    <ul><li><a href="{{ route('contact') }}">Contact</a></li></ul>
                 </div>
             </div>
         </div>
