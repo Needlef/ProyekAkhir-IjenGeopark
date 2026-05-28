@@ -28,7 +28,12 @@
 
     <!-- BAGIAN KARTU ARTIKEL (DINAMIS DARI DATABASE) -->
     <section class="cards-section">
-        <h2 style="margin-bottom: 20px;">Artikel Terbaru</h2>
+        <div class="section-header-artikel" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <h2 style="margin: 0;">Artikel Terbaru</h2>
+            <div class="search-container">
+                <input type="text" id="search-artikel" class="search-input" placeholder="Cari destinasi wisata...">
+            </div>
+        </div>
         <div class="cards-container" id="artikel-container">
             @include('partials.artikel_list')
         </div>
@@ -91,4 +96,55 @@
 
         </div>
     </section>
+
+    <!-- FUSE.JS LIBRARIES -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Ambil data JSON dari Laravel PHP
+            const articlesData = @json($artikel_data);
+            
+            // 2. Konfigurasi Fuse.js
+            const fuseOptions = {
+                keys: ['judul', 'label', 'ringkasan'],
+                threshold: 0.3 // Nilai toleransi pencarian (makin kecil makin strict)
+            };
+            const fuse = new Fuse(articlesData, fuseOptions);
+            
+            const searchInput = document.getElementById('search-artikel');
+            const artikelContainer = document.getElementById('artikel-container');
+            
+            // Ambil semua elemen kartu yang dirender dari HTML
+            const cardElements = Array.from(artikelContainer.querySelectorAll('.card'));
+            
+            // 3. Event Listener setiap kali user mengetik
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value.trim();
+                
+                if (query === '') {
+                    // Jika kosong, tampilkan semua kartu
+                    cardElements.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                    return;
+                }
+                
+                // Cari data yang cocok
+                const results = fuse.search(query);
+                
+                // Kumpulkan ID artikel yang cocok
+                const matchedIds = results.map(result => result.item.id.toString());
+                
+                // Sembunyikan yang tidak cocok, tampilkan yang cocok
+                cardElements.forEach(card => {
+                    const cardId = card.getAttribute('data-id');
+                    if (matchedIds.includes(cardId)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

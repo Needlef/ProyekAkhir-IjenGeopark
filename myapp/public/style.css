@@ -168,9 +168,35 @@ footer {
     font-weight: 300;
 }
 
-/* Grid Kartu */
+/* Grid Kartu & Pencarian */
 .cards-section {
     padding: 40px 5%;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #333;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .search-input {
+    background-color: #242424;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+body.dark-mode .search-input:focus {
+    border-color: #888;
 }
 
 .cards-container {
