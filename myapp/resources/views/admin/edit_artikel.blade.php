@@ -148,7 +148,7 @@
             } 
             // Jika tidak ada file lokal, pakai URL / Nama File tersimpan
             else if (urlInput) {
-                // Jika itu nama file lokal (tidak berawalan http), tambahkan path /uploads/
+                // Jika itu nama file lokal (tidak berawalan http), tambahkan path uploads/ dengan asset()
                 if (!urlInput.startsWith('http') && !urlInput.startsWith('/')) {
                     urlInput = '{{ asset("uploads") }}/' + urlInput;
                 }
