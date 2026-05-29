@@ -218,8 +218,6 @@ body.dark-mode .social-icons a:hover {
     color: #fff;
 }
 
-    display: block; /* Memastikan area klik penuh sesuai bentuk card */
-}
 
 /* Pemotong Teks Deskripsi (Maksimal 3 baris) */
 .story-desc {

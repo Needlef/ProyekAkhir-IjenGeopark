@@ -11,12 +11,30 @@
     <!-- Navigasi Samping -->
     <div class="sidebar">
         <h2>Admin Panel</h2>
-        <a href="{{ url('admin/dashboard') }}">🏠 Dashboard</a>
-        <a href="{{ url('admin/kelola_artikel') }}">📝 Kelola Artikel</a>
-        <a href="{{ url('admin/kelola_faq') }}">❓ Kelola FAQ</a>
-        <a href="{{ url('admin/kelola_customer_stories') }}">⭐ Kelola Customer Stories</a>
-        <a href="{{ url('admin/kelola_akun') }}">👤 Kelola Akun</a>
-        <a href="{{ url('admin/logout') }}" class="logout-btn"> Keluar (Logout)</a>
+        <a href="{{ url('admin/dashboard') }}">
+            <img src="{{ asset('ui/home_icon.png') }}" width="18" height="18" alt="Dashboard">
+            <span>Dashboard</span>
+        </a>
+        <a href="{{ url('admin/kelola_artikel') }}">
+            <img src="{{ asset('ui/article_icon.png') }}" width="18" height="18" alt="Artikel">
+            <span>Kelola Artikel</span>
+        </a>
+        <a href="{{ url('admin/kelola_faq') }}">
+            <img src="{{ asset('ui/faq_icon.png') }}" width="18" height="18" alt="FAQ">
+            <span>Kelola FAQ</span>
+        </a>
+        <a href="{{ url('admin/kelola_customer_stories') }}">
+            <img src="{{ asset('ui/star_icon.png') }}" width="18" height="18" alt="Stories">
+            <span>Kelola Stories</span>
+        </a>
+        <a href="{{ url('admin/kelola_akun') }}">
+            <img src="{{ asset('ui/account_icon.png') }}" width="18" height="18" alt="Akun">
+            <span>Kelola Akun</span>
+        </a>
+        <a href="{{ url('admin/logout') }}" class="logout-btn">
+            <img src="{{ asset('ui/logout_icon.png') }}" width="18" height="18" alt="Keluar">
+            <span>Keluar</span>
+        </a>
     </div>
 
     <!-- Konten Utama -->
