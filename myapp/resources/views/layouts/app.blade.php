@@ -34,11 +34,11 @@
             <div class="footer-brand">
                 <h2>Ijen Geopark</h2>
                 <p>Find the majestic of Java</p>
-                <div class="social-icons">
+                <!-- <div class="social-icons">
                     <a href="#"><img src="https://e7.pngegg.com/pngimages/624/712/png-clipart-instagram-logo-logo-computer-icons-insta-miscellaneous-sticker.png" alt="Instagram"></a>
-                    <!-- <a href="#"><img src="https://png.pngtree.com/element_our/md/20180626/md_5b32227feb591.jpg" alt="LinkedIn"></a> -->
-                    <a href="#"><img src="https://img.freepik.com/free-vector/twitter-new-2023-x-logo-white-background-vector_1017-45422.jpg?semt=ais_hybrid&w=740&q=80" alt="X"></a>
-                </div>
+                    <-- <a href="#"><img src="https://png.pngtree.com/element_our/md/20180626/md_5b32227feb591.jpg" alt="LinkedIn"></a> -->
+                    <!-- <a href="#"><img src="https://img.freepik.com/free-vector/twitter-new-2023-x-logo-white-background-vector_1017-45422.jpg?semt=ais_hybrid&w=740&q=80" alt="X"></a>
+                </div> --> 
             </div>
             
             <div class="footer-links-container">
