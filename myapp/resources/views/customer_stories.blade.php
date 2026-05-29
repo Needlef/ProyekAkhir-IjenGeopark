@@ -22,15 +22,12 @@
             <!-- Story -->
             <a href="{{ url('/customer-stories/' . $story->id) }}" class="story-link">
                 <div class="card story-card">
-                    <div class="card-img" style="background-image: url('@php
-                        if ($story->image && strpos($story->image, 'http') === 0) {
-                            echo htmlspecialchars($story->image);
-                        } else if ($story->image) {
-                            echo asset("uploads/" . $story->image);
-                        } else {
-                            echo 'https://via.placeholder.com/400?text=No+Image';
-                        }
-                    @endphp');"></div>
+                    @php
+                        $imagePath = $story->image && strpos($story->image, 'http') === 0 
+                            ? $story->image 
+                            : ($story->image ? asset("uploads/" . $story->image) : 'https://via.placeholder.com/400?text=No+Image');
+                    @endphp
+                    <div class="card-img" style="background-image: url('{{ $imagePath }}');"></div>
                     <div class="card-body">
                         <h3>"{{ htmlspecialchars($story->title) }}"</h3>
                         <p class="story-excerpt">{{ htmlspecialchars($story->description) }}</p>
