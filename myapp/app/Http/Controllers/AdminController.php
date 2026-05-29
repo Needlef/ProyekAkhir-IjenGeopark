@@ -21,7 +21,7 @@ class AdminController extends Controller
     {
         $admin = auth()->user();
 
-        $data = $request->validate([
+        $data = $request->validateWithBag('updateAkun', [
             'username' => 'required|unique:admin_users,username,' . $admin->id,
             'password' => 'nullable|min:4|confirmed',
         ]);
@@ -38,7 +38,7 @@ class AdminController extends Controller
 
     public function storeAkun(Request $request)
     {
-        $data = $request->validate([
+        $data = $request->validateWithBag('storeAkun', [
             'username' => 'required|unique:admin_users,username',
             'password' => 'required|min:4|confirmed',
         ]);

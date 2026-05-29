@@ -8,10 +8,10 @@
         <h2>Kelola Akun Saya</h2>
         <p style="color:#666; margin-bottom:20px;">Ubah username atau password akun Anda yang sedang login.</p>
 
-        @if($errors->any() && !session('form_type'))
+        @if($errors->updateAkun->any())
             <div style="color:red; margin-bottom:15px;">
                 <ul>
-                    @foreach($errors->all() as $error)
+                    @foreach($errors->updateAkun->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
@@ -45,10 +45,10 @@
     <div class="card" id="form-tambah" style="margin-top: 30px;">
         <h2>Tambah Akun Admin Baru</h2>
 
-        @if($errors->any() && session('form_type') === 'store')
+        @if($errors->storeAkun->any())
             <div style="color:red; margin-bottom:15px;">
                 <ul>
-                    @foreach($errors->all() as $error)
+                    @foreach($errors->storeAkun->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
