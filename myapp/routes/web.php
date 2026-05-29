@@ -40,4 +40,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/customer_stories/{id}/edit', [AdminController::class, 'editCustomerStories']);
     Route::put('/customer_stories/{id}', [AdminController::class, 'updateCustomerStories']);
     Route::delete('/customer_stories/{id}', [AdminController::class, 'destroyCustomerStories']);
+
+    // Akun Admin (kelola akun sendiri + buat akun baru)
+    Route::get('/kelola_akun', [AdminController::class, 'kelolaAkun']);
+    Route::put('/akun', [AdminController::class, 'updateAkun']);
+    Route::post('/akun', [AdminController::class, 'storeAkun']);
 });

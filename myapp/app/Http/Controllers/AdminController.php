@@ -2,13 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminUser;
 use App\Models\Artikel;
 use App\Models\Faq;
 use App\Models\CustomerStory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    // AKUN ADMIN (kelola akun sendiri + buat akun baru)
+    public function kelolaAkun()
+    {
+        return view('admin.kelola_akun');
+    }
+
+    public function updateAkun(Request $request)
+    {
+        $admin = auth()->user();
+
+        $data = $request->validate([
+            'username' => 'required|unique:admin_users,username,' . $admin->id,
+            'password' => 'nullable|min:4|confirmed',
+        ]);
+
+        $admin->username = $data['username'];
+
+        if (!empty($data['password'])) {
+            $admin->password = Hash::make($data['password']);
+        }
+
+        $admin->save();
+        return redirect('/admin/kelola_akun')->with('success', 'Akun berhasil diperbarui');
+    }
+
+    public function storeAkun(Request $request)
+    {
+        $data = $request->validate([
+            'username' => 'required|unique:admin_users,username',
+            'password' => 'required|min:4|confirmed',
+        ]);
+
+        $data['password'] = Hash::make($data['password']);
+
+        AdminUser::create($data);
+        return redirect('/admin/kelola_akun')->with('success', 'Akun admin baru berhasil ditambahkan');
+    }
+
     public function dashboard()
     {
         $total_artikel = Artikel::count();
