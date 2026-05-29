@@ -38,6 +38,9 @@
 
 .story-card {
     transition: transform 0.2s ease;
+    border-bottom: 1px solid #ddd; /* Garis pembagi */
+    padding-bottom: 25px; /* Jarak antara konten dan garis */
+    margin-bottom: 20px; /* Jarak antar baris kartu */
 }
 
 .story-card:hover {
@@ -101,6 +104,10 @@
 /* Dark mode adjustments */
 body.dark-mode .story-card .visitor-name {
     color: #fff;
+}
+
+body.dark-mode .story-card {
+    border-bottom-color: #333; /* Warna garis lebih gelap di Dark Mode */
 }
 
 body.dark-mode .btn-view-more {

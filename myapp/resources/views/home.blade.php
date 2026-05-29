@@ -5,6 +5,7 @@
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('home.css') }}">
     <link rel="stylesheet" href="{{ asset('faq.css') }}">
+    <link rel="stylesheet" href="{{ asset('customer_stories.css') }}">
 @endsection
 
 @section('content')
@@ -44,6 +45,7 @@
         </div>
     </section>
 
+    <!-- BAGIAN KARTU CUSTOMER STORY -->
     <section class="cards-section">
         <div class="section-header">
             <h2>Customer Stories</h2>
