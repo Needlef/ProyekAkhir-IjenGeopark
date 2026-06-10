@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_users', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('id')->autoIncrement()->comment('ID unik pengguna');
+            $table->string('username', 50)->comment('Nama akun untuk login');
+            $table->string('password', 255)->comment('Password terenkripsi (hash)');
         });
     }
 
