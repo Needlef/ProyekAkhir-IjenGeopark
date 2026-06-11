@@ -2,6 +2,10 @@
 
 @section('title', htmlspecialchars($story->title) . ' - Customer Stories - Ijen Geopark')
 
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('artikel.css') }}">
+@endsection
+
 @section('content')
     @php
         // Logika gambar (URL vs Fisik)
@@ -26,7 +30,7 @@
     <!-- BAGIAN KONTEN CUSTOMER STORY -->
     <main class="article-content">
         <!-- Label Eyebrow -->
-        <!-- <p class="eyebrow">Customer Story</p> -->
+        <p class="eyebrow">Customer Story</p>
         
         <!-- Judul/Quote Utama -->
         <h1 class="main-headline">{{ htmlspecialchars($story->title) }}</h1>
